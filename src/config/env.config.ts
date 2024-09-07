@@ -5,5 +5,8 @@ export const envConfig = () => ({
             graphql: `${process.env.NEXT_PUBLIC_BACKEND_URL}/graphql`
         }
     },
-    appSalt: process.env.APP_SALT
+    pinata: {
+        jwt: process.env.PINATA_JWT,
+        gateway: process.env.PINATA_GATEWAY,
+    }
 })
