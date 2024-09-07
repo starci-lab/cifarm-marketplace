@@ -1,3 +1,4 @@
+import { Network } from "@/services"
 import { ChainId, Chain, Platform } from "@wormhole-foundation/sdk"
 
 export const chainConfig = (): ChainConfig => {
@@ -10,6 +11,28 @@ export const chainConfig = (): ChainConfig => {
                 chain: "Avalanche",
                 platform: "Evm",
                 name: "Avalanche",
+                nftContracts: {
+                    premiumTile: {
+                        [Network.Testnet]: {
+                            key: "premiumTile",
+                            address: "0x08AB6dF254B47C6107C89d6155fCbec6Bc9CD13a",
+                            name: "Premium Tile NFT",
+                            imageUrl: "/icons/premium-tile.png",
+                        },
+                        [Network.Mainnet]: {
+                            key: "",
+                            address: "",
+                            name: "",
+                            imageUrl: "",
+                        },
+                        [Network.Devnet]: {
+                            key: "",
+                            address: "",
+                            name: "",
+                            imageUrl: "",
+                        },
+                    },
+                },
                 tokens: [
                     {
                         key: "aptos-native",
@@ -46,6 +69,7 @@ export const chainConfig = (): ChainConfig => {
                     },
                 ],
                 providers: [],
+                nftContracts: {},
             },
             solana: {
                 key: "solana",
@@ -73,6 +97,7 @@ export const chainConfig = (): ChainConfig => {
                     },
                 ],
                 providers: [],
+                nftContracts: {},
             },
             bsc: {
                 key: "bsc",
@@ -106,6 +131,7 @@ export const chainConfig = (): ChainConfig => {
                         imageUrl: "/icons/metamask.svg",
                     },
                 ],
+                nftContracts: {},
             },
         },
     }
@@ -124,6 +150,9 @@ export const defaultSecondaryNativeTokenKey =
   chainConfig().chains[defaultSecondaryChainKey].tokens[0].key
 export const defaultProviderKey =
   chainConfig().chains[defaultChainKey].providers[0].key
+export const defaultNftKey = Object.keys(
+    chainConfig().chains[defaultChainKey].nftContracts
+)[0]
 
 export interface ChainInfo {
   key: string;
@@ -134,12 +163,26 @@ export interface ChainInfo {
   name: string;
   tokens: Array<TokenInfo>;
   providers: Array<ProviderInfo>;
+  nftContracts: Record<string, Record<Network, NftContractInfo>>;
 }
 
 export interface ProviderInfo {
   key: string;
   imageUrl: string;
   name: string;
+}
+
+export interface NftContractInfo {
+  imageUrl: string;
+  name: string;
+  address: string;
+}
+
+export interface NftContractInfo {
+  key: string;
+  imageUrl: string;
+  name: string;
+  address: string;
 }
 
 export interface TokenInfo {

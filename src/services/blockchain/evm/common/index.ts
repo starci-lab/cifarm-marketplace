@@ -1,8 +1,8 @@
-import { ethers } from "ethers"
-import { abi } from "../abi/erc20.abi"
+import { ContractTransactionResponse, ethers } from "ethers"
+import { erc20Abi, nftAbi } from "../abi"
 import { computeDenomination } from "@/utils"
 import { getSeed } from "@/services/cryptography"
-import { ChainAccount } from "../../common"
+import { ChainAccount, MintNFTData } from "../../common"
 
 export const _getBalance = async (
     accountAddress: string,
@@ -15,10 +15,10 @@ export const _getBalance = async (
     if (tokenAddress === "native") {
         amount = await provider.getBalance(accountAddress)
     } else {
-        const contract = new ethers.Contract(tokenAddress , abi , provider)
+        const contract = new ethers.Contract(tokenAddress, erc20Abi, provider)
         const [_balance, _decimals] = await Promise.all([
             contract.balanceOf(accountAddress),
-            contract.decimals()
+            contract.decimals(),
         ])
         amount = BigInt(_balance)
         decimals = Number(_decimals)
@@ -42,4 +42,28 @@ export const createEvmAccount = (
         privateKey: account.privateKey,
         publicKey: account.publicKey,
     }
+}
+
+export const _checkMinter = async (
+    accountAddress: string,
+    nftAddress: string,
+    rpcUrl: string
+): Promise<boolean> => {
+    const provider = new ethers.JsonRpcProvider(rpcUrl)
+    const contract = new ethers.Contract(nftAddress, nftAbi, provider)
+    const minter = await contract.MINTER()
+    return await contract.hasRole(minter, accountAddress)
+}
+
+export const _mintNFT = async (
+    nftAddress: string,
+    evmSigner: ethers.JsonRpcSigner,
+    data: MintNFTData
+): Promise<string> => {
+    const contract = new ethers.Contract(nftAddress, nftAbi, evmSigner)
+    const { hash } = (await contract.mint(
+        data.toAddress,
+        data.cid
+    )) as ContractTransactionResponse
+    return hash
 }

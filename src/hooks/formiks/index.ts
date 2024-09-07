@@ -1,17 +1,17 @@
 import { FormikProps } from "formik"
 import { use } from "react"
 import { HooksContext } from "../provider.hooks"
-import { CreatePremiumTileFormikValues, _useCreatePremiumTileFormik } from "./useCreatePremiumTileFormik"
+import { MintNFTFormikValues, _useMintNFTFormik } from "./useMintNFTFormik"
 
 export interface UseFormiksReturn {
-    createPremiumTileFormik: FormikProps<CreatePremiumTileFormikValues>
+    mintNFTFormik: FormikProps<MintNFTFormikValues>
 }
 
 export const _useFormiks = (): UseFormiksReturn => {
-    const createPremiumTileFormik = _useCreatePremiumTileFormik()
+    const mintNFTFormik = _useMintNFTFormik()
 
     return {
-        createPremiumTileFormik
+        mintNFTFormik
     }
 }
 
@@ -21,4 +21,4 @@ export const useFormiks = (): UseFormiksReturn => {
     return formiks
 }
 
-export * from "./useCreatePremiumTileFormik"
+export * from "./useMintNFTFormik"

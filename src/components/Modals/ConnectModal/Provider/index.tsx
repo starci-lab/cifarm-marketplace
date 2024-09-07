@@ -1,8 +1,7 @@
 "use client"
 
 import { ProviderInfo } from "@/config"
-import { useMetaMaskSwr } from "@/hooks"
-import { useAppSelector } from "@/redux"
+import { useMetaMaskSwr, useProvider } from "@/hooks"
 import {
     Card,
     CardBody,
@@ -16,15 +15,14 @@ export interface ProviderProps {
 }
 
 export const Provider = ({ providerInfo }: ProviderProps) => {
-    const { providerKey } = useAppSelector((state) => state.chainReducer)
+    //const { providerKey } = useAppSelector((state) => state.chainReducer)
+    const provider = useProvider()
     const { connectMutation } = useMetaMaskSwr()
-
+    
     return (
         <Card
             onPress={async () => {
-                if (providerKey === "metaMask") {
-                    await connectMutation.trigger()
-                }
+                await provider?.connectFn()
             }}
             shadow="none"
             isPressable
@@ -38,10 +36,10 @@ export const Provider = ({ providerInfo }: ProviderProps) => {
                         src={providerInfo.imageUrl}
                     />
                     <div className="flex gap-2 items-center">
-                        <div className="text-sm">{providerInfo.name}</div>
                         {connectMutation.isMutating ? (
                             <Spinner color="default" size="sm" />
                         ) : null}
+                        <div className="text-sm">{providerInfo.name}</div>
                     </div>
                 </div>
             </CardBody>

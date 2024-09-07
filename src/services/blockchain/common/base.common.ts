@@ -15,3 +15,4 @@ export interface TokenMetadata {
   name: string;
   decimals: number;
 }
+

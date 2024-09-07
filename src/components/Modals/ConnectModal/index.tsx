@@ -11,21 +11,20 @@ import {
     Spacer,
     Link,
 } from "@nextui-org/react"
-import { useConnectModalDisclosure } from "@/hooks"
+import { useConnectModalDisclosure, useProvider } from "@/hooks"
 import { useAppSelector } from "@/redux"
 import { Chain } from "./Chain"
 import { Provider } from "./Provider"
-import { useSDK } from "@metamask/sdk-react"
 import { truncateString } from "@/utils"
+import { Network } from "./Network"
 
 export const ConnectModal = () => {
     const { isOpen, onClose } = useConnectModalDisclosure()
-    const { chainKey, chains, providerKey } = useAppSelector(
+    const { chainKey, chains } = useAppSelector(
         (state) => state.chainReducer
     )
     const _chains = Object.values(chains)
-    const { account, sdk } = useSDK()
-
+    const provider = useProvider()
     return (
         <Modal isOpen={isOpen} hideCloseButton size="4xl">
             <ModalContent>
@@ -40,6 +39,12 @@ export const ConnectModal = () => {
                                     <Chain key={chainInfo.key} chainInfo={chainInfo} />
                                 ))}
                             </div>
+                        </div>
+                        <Spacer y={4} />
+                        <div>
+                            <div>Select Network</div>
+                            <Spacer y={3}/>
+                            <Network />
                         </div>
                         <Spacer y={4} />
                         <div>
@@ -58,7 +63,7 @@ export const ConnectModal = () => {
                         <div>
                             <div>Connected Address</div>
                             <Spacer y={3} />
-                            {account ? (
+                            {provider?.address ? (
                                 <div>
                                     <div className="flex gap-2">
                                         <Link
@@ -67,16 +72,14 @@ export const ConnectModal = () => {
                                             color="foreground"
                                             isExternal
                                         >
-                                            {truncateString(account)}
+                                            {truncateString(provider.address)}
                                         </Link>
                                         <Link
                                             size="sm"
                                             as="button"
                                             color="primary"
                                             onPress={async () => {
-                                                if (providerKey === "metaMask") {
-                                                    await sdk?.terminate()
-                                                }
+                                                await provider.disconnectFn()
                                             }}
                                         >
                     Disconnect
@@ -85,7 +88,6 @@ export const ConnectModal = () => {
                                 </div>
                             ) : <div className="text-sm text-foreground-400">Connect to a provider to view the address</div>}
                         </div>
-                      
                     </div>
                 </ModalBody>
                 <ModalFooter className="p-4 pt-2">

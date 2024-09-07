@@ -1,4 +1,4 @@
-import { ChainInfo, TokenInfo, chainConfig, defaultChainKey, defaultProviderKey } from "@/config"
+import { ChainInfo, TokenInfo, chainConfig, defaultChainKey, defaultNftKey, defaultProviderKey } from "@/config"
 import { ChainAccount, Network } from "@/services"
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { v4 } from "uuid"
@@ -7,6 +7,7 @@ export interface ChainState {
   network: Network;
   chainKey: string;
   providerKey: string;
+  nftKey: string;
   credentials: ChainCredentials
   chains: Record<string, ChainInfo>;
   saveChainsKey: number;
@@ -25,6 +26,7 @@ const initialState: ChainState = {
     chainKey: defaultChainKey,
     network: Network.Testnet,
     providerKey: defaultProviderKey,
+    nftKey: defaultNftKey,
     credentials: {
         aptos: {
             address: "",

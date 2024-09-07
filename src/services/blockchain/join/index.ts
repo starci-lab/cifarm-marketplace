@@ -5,7 +5,7 @@ import {
     getAptosBalance,
     getAptosTokenMetadata,
 } from "../aptos"
-import { ChainAccount, Network } from "../common"
+import { ChainAccount, MintNFTData, Network, Signers } from "../common"
 import {
     createSolanaAccount,
     getSolanaBalance,
@@ -13,7 +13,8 @@ import {
     solanaExplorerUrls,
 } from "../solana"
 import { SolanaChains } from "@wormhole-foundation/sdk-solana"
-import { createEvmAccount, bscExplorerUrls, getBscBalance } from "../evm"
+import { createEvmAccount, bscExplorerUrls, getBscBalance, _mintNFT } from "../evm"
+import { checkAvalancheMinter } from "../evm"
 
 export interface GetBalanceParams {
   accountAddress: string;
@@ -32,23 +33,11 @@ export const getBalance = async ({
 
     switch (chainKey) {
     case "aptos":
-        return getAptosBalance(
-            accountAddress,
-            tokenAddress,
-            network
-        )
+        return getAptosBalance(accountAddress, tokenAddress, network)
     case "solana":
-        return getSolanaBalance(
-            accountAddress,
-            tokenAddress,
-            network
-        )
+        return getSolanaBalance(accountAddress, tokenAddress, network)
     case "bsc":
-        return getBscBalance(
-            accountAddress,
-            tokenAddress,
-            network
-        )
+        return getBscBalance(accountAddress, tokenAddress, network)
     default:
         throw new Error("Invalid chain key")
     }
@@ -126,15 +115,59 @@ export const getTokenMetadata = async ({
 
     switch (chainKey) {
     case "aptos":
-        return await getAptosTokenMetadata(
-            tokenAddress,
-            network
-        )
+        return await getAptosTokenMetadata(tokenAddress, network)
     case "solana":
         return await getSolanaTokenMetadata(
         tokenAddress as TokenAddress<SolanaChains>,
         network
         )
+    default:
+        throw new Error("Invalid chain key")
+    }
+}
+
+export interface CheckMinterParams {
+  accountAddress: string;
+  nftAddress: string;
+  chainKey: string;
+  network?: Network;
+}
+export const checkMinter = async ({
+    accountAddress,
+    nftAddress,
+    chainKey,
+    network,
+}: CheckMinterParams) => {
+    network = network || Network.Testnet
+
+    switch (chainKey) {
+    case "avalanche":
+        return checkAvalancheMinter(accountAddress, nftAddress, network)
+    default:
+        throw new Error("Invalid chain key")
+    }
+}
+
+export interface MintNFTParams {
+  nftAddress: string;
+  chainKey: string;
+  network?: Network;
+  signers: Signers;
+  data: MintNFTData;
+}
+export const mintNFT = async ({
+    nftAddress,
+    chainKey,
+    //network,
+    signers,
+    data
+}: MintNFTParams) => {
+    //network = network || Network.Testnet
+    
+    switch (chainKey) {
+    case "avalanche":
+        if (!signers.evmSigner) throw new Error("Evm signer not found")
+        return _mintNFT(nftAddress, signers.evmSigner, data)
     default:
         throw new Error("Invalid chain key")
     }
