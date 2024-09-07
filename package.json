@@ -1,0 +1,52 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.11.8",
+    "@aptos-labs/ts-sdk": "^1.27.1",
+    "@metamask/sdk": "^0.28.2",
+    "@metamask/sdk-react": "^0.28.2",
+    "@nextui-org/react": "^2.4.6",
+    "@reduxjs/toolkit": "^2.2.7",
+    "@solana/web3.js": "^1.95.3",
+    "@wormhole-foundation/sdk": "^0.10.4",
+    "dayjs": "^1.11.13",
+    "ethers": "^6.13.2",
+    "formik": "^2.4.6",
+    "framer-motion": "^11.5.4",
+    "next": "14.2.8",
+    "numeral": "^2.0.6",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-redux": "^9.1.2",
+    "redux": "^5.0.1",
+    "swr": "^2.2.5",
+    "yup": "^1.4.0"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^1.1.1",
+    "@eslint/js": "^9.10.0",
+    "@types/node": "^20",
+    "@types/numeral": "^2.0.5",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^9.10.0",
+    "eslint-config-next": "14.2.8",
+    "eslint-plugin-react": "^7.35.2",
+    "globals": "^15.9.0",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5",
+    "typescript-eslint": "^8.4.0"
+  },
+  "overrides": {
+    "eslint": "^9.10.0"
+  }
+}
