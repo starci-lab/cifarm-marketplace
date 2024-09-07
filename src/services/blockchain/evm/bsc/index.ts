@@ -1,4 +1,4 @@
-import { Network } from "@/services"
+import { Network } from "@/types"
 import { _getBalance } from "../common"
 import { chainConfig } from "@/config"
 

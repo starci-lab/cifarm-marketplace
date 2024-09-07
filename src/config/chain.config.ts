@@ -1,5 +1,10 @@
-import { Network } from "@/services"
 import { ChainId, Chain, Platform } from "@wormhole-foundation/sdk"
+
+export enum Network {
+  Devnet = "Devnet",
+  Testnet = "Testnet",
+  Mainnet = "Mainnet",
+}
 
 export const chainConfig = (): ChainConfig => {
     return {

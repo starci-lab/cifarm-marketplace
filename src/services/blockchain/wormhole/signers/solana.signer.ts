@@ -3,7 +3,7 @@ import {
     SolanaChains,
     SolanaSendSigner,
 } from "@wormhole-foundation/sdk-solana"
-import { Network as SupportedNetwork } from "../../common"
+import { Network as SupportedNetwork } from "@/config"
 import { SignerParams } from "../base.wormhole"
 import { solanaClient as _solanaClient } from "../../solana"
 import { Connection, Keypair } from "@solana/web3.js"

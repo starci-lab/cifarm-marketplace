@@ -5,7 +5,8 @@ import {
     Network as AptosNetwork,
     Account,
 } from "@aptos-labs/ts-sdk"
-import { ChainAccount, Network, TokenMetadata } from "../common"
+import { ChainAccount, TokenMetadata } from "../common"
+import { Network } from "@/config"
 import { AptosAddress } from "@wormhole-foundation/sdk-aptos"
 
 export const aptosConfig = (network: Network = Network.Testnet) => {
