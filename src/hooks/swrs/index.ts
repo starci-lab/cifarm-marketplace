@@ -1,18 +1,18 @@
 import { use } from "react"
 import { HooksContext } from "../provider.hooks"
-import { UseMetaMaskSwrsReturn, _useMetaMaskSwrs } from "./useMetaMaskSwrs"
+import { UseProviderSwrsReturn, _useProviderSwrs } from "./useProviderSwrs"
 import { UseChainSwrsReturn, _useChainSwrs } from "./useChainSwrs"
 
 export interface UseSwrsReturn {
-    metaMaskSwrs: UseMetaMaskSwrsReturn
+    providerSwrs: UseProviderSwrsReturn
     chainSwrs: UseChainSwrsReturn
 }
 
 export const _useSwrs = () : UseSwrsReturn => {
-    const metaMaskSwrs = _useMetaMaskSwrs()
+    const providerSwrs = _useProviderSwrs()
     const chainSwrs = _useChainSwrs()
     return {
-        metaMaskSwrs,
+        providerSwrs,
         chainSwrs
     }   
 }
@@ -22,5 +22,5 @@ export const useSwrs = () : UseSwrsReturn => {
     return swrs
 }
 
-export * from "./useMetaMaskSwrs"
+export * from "./useProviderSwrs"
 export * from "./useChainSwrs"

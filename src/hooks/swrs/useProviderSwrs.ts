@@ -2,32 +2,32 @@ import { useSwrs } from "."
 import useSWRMutation, { SWRMutationResponse } from "swr/mutation"
 import { useSDK } from "@metamask/sdk-react"
 
-const METAMASK_CONNECT = "metamaskConenct"
-const METAMASK_DISCONNECT = "metamaskDisconenct"
+const PROVIDER_CONNECT = "providerConenct"
+const PROVIDER_DISCONNECT = "providerDisconenct"
 
-export interface UseMetaMaskSwrsReturn {
+export interface UseProviderSwrsReturn {
   connectSwrMutation: SWRMutationResponse<
     void,
     unknown,
-    typeof METAMASK_CONNECT
+    typeof PROVIDER_CONNECT
   >;
   disconnectSwrMutation: SWRMutationResponse<
     void,
     unknown,
-    typeof METAMASK_DISCONNECT
+    typeof PROVIDER_DISCONNECT
   >;
 }
 
-export const _useMetaMaskSwrs = (): UseMetaMaskSwrsReturn => {
+export const _useProviderSwrs = (): UseProviderSwrsReturn => {
     const { sdk } = useSDK()
-    const connectSwrMutation = useSWRMutation(METAMASK_CONNECT, async () => {
+    const connectSwrMutation = useSWRMutation(PROVIDER_CONNECT, async () => {
         try {
             await sdk?.connect()
         } catch (ex: unknown) {
             console.log(ex)
         } 
     })
-    const disconnectSwrMutation = useSWRMutation(METAMASK_DISCONNECT, async () => {
+    const disconnectSwrMutation = useSWRMutation(PROVIDER_DISCONNECT, async () => {
         try {
             await sdk?.terminate()
         } catch (ex: unknown) {
@@ -40,7 +40,7 @@ export const _useMetaMaskSwrs = (): UseMetaMaskSwrsReturn => {
     }
 }
 
-export const useMetaMaskSwrs = (): UseMetaMaskSwrsReturn => {
-    const { metaMaskSwrs } = useSwrs()
-    return metaMaskSwrs
+export const useProviderSwrs = (): UseProviderSwrsReturn => {
+    const { providerSwrs } = useSwrs()
+    return providerSwrs
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import { ProviderInfo } from "@/config"
-import { useMetaMaskSwr, useProvider } from "@/hooks"
+import { useProviderSwrs, useProvider } from "@/hooks"
 import {
     Card,
     CardBody,
@@ -17,7 +17,7 @@ export interface ProviderProps {
 export const Provider = ({ providerInfo }: ProviderProps) => {
     //const { providerKey } = useAppSelector((state) => state.chainReducer)
     const provider = useProvider()
-    const { connectMutation } = useMetaMaskSwr()
+    const { connectSwrMutation } = useProviderSwrs()
     
     return (
         <Card
@@ -36,7 +36,7 @@ export const Provider = ({ providerInfo }: ProviderProps) => {
                         src={providerInfo.imageUrl}
                     />
                     <div className="flex gap-2 items-center">
-                        {connectMutation.isMutating ? (
+                        {connectSwrMutation.isMutating ? (
                             <Spinner color="default" size="sm" />
                         ) : null}
                         <div className="text-sm">{providerInfo.name}</div>

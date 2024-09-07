@@ -1,5 +1,5 @@
 "use client"
-import { Divider, Tab, Tabs } from "@nextui-org/react"
+import { Tab, Tabs } from "@nextui-org/react"
 import React from "react"
 
 export const UnderNavbar = () => {
@@ -14,7 +14,6 @@ export const UnderNavbar = () => {
                     <Tab key="manangement" title="Manangement" />
                 </Tabs>
             </div>
-            <Divider/>
         </div>
     )
 }

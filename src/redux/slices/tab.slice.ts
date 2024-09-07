@@ -1,27 +1,27 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
-export enum ManagementTab {
-    Create = "create",
-    Edit = "edit",
+export enum AdminTab {
+    Mint = "mint",
+    Burn = "burn",
 }
 
 export interface TabState {
-    managementTab: ManagementTab
+    adminTab: AdminTab
 }
 
 const initialState: TabState = {
-    managementTab: ManagementTab.Create
+    adminTab: AdminTab.Mint
 }
 
 export const tabSlice = createSlice({
     name: "tabReducer",
     initialState,
     reducers: {
-        switchManagementTab: (state, { payload }: PayloadAction<ManagementTab>) => {
-            state.managementTab = payload
+        switchAdminTab: (state, { payload }: PayloadAction<AdminTab>) => {
+            state.adminTab = payload
         }
     }
 })
 
-export const { switchManagementTab } = tabSlice.actions
+export const { switchAdminTab } = tabSlice.actions
 export const tabReducer = tabSlice.reducer

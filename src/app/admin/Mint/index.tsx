@@ -12,7 +12,7 @@ import React from "react"
 import { NftTypeCard } from "./NftTypeCard"
 import { useChainSwrs, useMintNFTFormik } from "@/hooks"
 
-export const Create = () => {
+export const Mint = () => {
     const { chainKey, chains, network } = useAppSelector(
         (state) => state.chainReducer
     )
@@ -25,7 +25,7 @@ export const Create = () => {
     const { checkMinterSwr } = useChainSwrs()
     return (
         <div>
-            <div className="text-2xl font-bold">Create</div>
+            <div className="text-2xl font-bold">Mint</div>
             <Spacer y={6} />
             <Card shadow="none" className="bg-warning/20">
                 <CardBody className="px-3 py-2.5 text-sm">

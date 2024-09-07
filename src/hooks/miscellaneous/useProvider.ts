@@ -1,6 +1,6 @@
 import { useAppSelector } from "@/redux"
 import { useSDK } from "@metamask/sdk-react"
-import { useMetaMaskSwrs } from "../swrs"
+import { useProviderSwrs } from "../swrs"
 
 export interface UseProviderReturn {
   address: string;
@@ -10,7 +10,7 @@ export interface UseProviderReturn {
 export const useProvider = (): UseProviderReturn | undefined => {
     const providerKey = useAppSelector((state) => state.chainReducer.providerKey)
     const { account } = useSDK()
-    const { connectSwrMutation, disconnectSwrMutation } = useMetaMaskSwrs()
+    const { connectSwrMutation, disconnectSwrMutation } = useProviderSwrs()
     switch (providerKey) {
     case "metaMask": {
         return {
