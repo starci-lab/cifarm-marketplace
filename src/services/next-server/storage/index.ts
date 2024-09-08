@@ -1,30 +1,27 @@
-import { readStorage, writeStorage } from "./core.storage"
+import axios from "axios"
 
-export * from "./core.storage"
-
-export interface Listing {
-    sellerAddress: string,
-    price: number
-}
-export type NFTListing = Record<number, Listing>
-
-const key = "listings"
-
-export class NFTListingService {
-    public async add(tokenId: number, listing: Listing) {
-        let listings: NFTListing = {}
-        const data = await readStorage({
-            key,
-        }) as string
-        if (data !== "") {
-            listings = JSON.parse(data) as NFTListing
-        } 
-        listings[tokenId] = listing
-        await writeStorage({
-            key,
-            data: JSON.stringify(listing),
-        })
-    }
+export interface NextServerWriteParams {
+  key: string;
+  data: string;
 }
 
-export const nftListingService = new NFTListingService()
+export interface NextServerReadParams {
+  key: string;
+}
+
+export interface NextServerDeleteParams {
+  key: string;
+}
+
+export const writeStorage = async (params: NextServerWriteParams) => {
+    await axios.post("/api/storage", params)
+}
+
+export const readStorage = async ({ key }: NextServerReadParams): Promise<unknown> => {
+    const { data } = await axios.get(`/api/storage/${key}`)
+    return JSON.parse(data)
+}
+
+export const deleteStorage = async ({ key }: NextServerDeleteParams) => {
+    await axios.delete(`/api/storage/${key}`)
+}

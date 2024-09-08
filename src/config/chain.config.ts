@@ -1,4 +1,4 @@
-import { ChainId, Chain, Platform } from "@wormhole-foundation/sdk"
+import { Chain } from "@wormhole-foundation/sdk"
 
 export enum Network {
   Devnet = "Devnet",
@@ -11,132 +11,29 @@ export const chainConfig = (): ChainConfig => {
         chains: {
             avalanche: {
                 key: "avalanche",
-                imageUrl: "/icons/avalanche.svg",
-                wormholeChainId: 6,
                 chain: "Avalanche",
-                platform: "Evm",
+                imageUrl: "/icons/avalanche.svg",
                 name: "Avalanche",
                 nftContracts: {
                     premiumTile: {
-                        [Network.Testnet]: {
-                            key: "premiumTile",
-                            address: "0xA871f915Dc331797d12625277Cd7Ae1cbad9f05d",
-                            name: "Premium Tile NFT",
-                            imageUrl: "/icons/premium-tile.png",
+                        key: "premiumTile",
+                        addresses: {
+                            [Network.Devnet]: "",
+                            [Network.Testnet]: "0xA871f915Dc331797d12625277Cd7Ae1cbad9f05d",
+                            [Network.Mainnet]: "",
                         },
-                        [Network.Mainnet]: {
-                            key: "",
-                            address: "",
-                            name: "",
-                            imageUrl: "",
-                        },
-                        [Network.Devnet]: {
-                            key: "",
-                            address: "",
-                            name: "",
-                            imageUrl: "",
-                        },
+                        name: "Premium Tile NFT",
+                        imageUrl: "/icons/premium-tile.png",
                     },
                 },
-                tokens: [
-                    {
-                        key: "aptos-native",
-                        address: "native",
-                        imageUrl: "/icons/aptos.svg",
-                        name: "Aptos",
-                        symbol: "APT",
-                        decimals: 8,
-                    },
-                ],
                 providers: [
                     {
-                        name: "MetaMask",
                         key: "metaMask",
+                        name: "MetaMask",
+
                         imageUrl: "/icons/metamask.svg",
                     },
                 ],
-            },
-            aptos: {
-                key: "aptos",
-                imageUrl: "/icons/aptos.svg",
-                wormholeChainId: 22,
-                chain: "Aptos",
-                platform: "Aptos",
-                name: "Aptos",
-                tokens: [
-                    {
-                        key: "aptos-native",
-                        address: "native",
-                        imageUrl: "/icons/aptos.svg",
-                        name: "Aptos",
-                        symbol: "APT",
-                        decimals: 8,
-                    },
-                ],
-                providers: [],
-                nftContracts: {},
-            },
-            solana: {
-                key: "solana",
-                imageUrl: "/icons/solana.svg",
-                wormholeChainId: 1,
-                chain: "Solana",
-                platform: "Solana",
-                name: "Solana",
-                tokens: [
-                    {
-                        key: "solana-native",
-                        address: "native",
-                        imageUrl: "/icons/solana.svg",
-                        name: "Solana",
-                        symbol: "SOL",
-                        decimals: 9,
-                    },
-                    {
-                        key: "solana-usdc",
-                        address: "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
-                        imageUrl: "/icons/usdc.svg",
-                        name: "USD Coin",
-                        symbol: "USDC",
-                        decimals: 6,
-                    },
-                ],
-                providers: [],
-                nftContracts: {},
-            },
-            bsc: {
-                key: "bsc",
-                imageUrl: "/icons/bsc.svg",
-                wormholeChainId: 4,
-                chain: "Bsc",
-                platform: "Evm",
-                name: "Binance Smart Chain",
-                tokens: [
-                    {
-                        key: "bsc-native",
-                        address: "native",
-                        imageUrl: "/icons/bsc.svg",
-                        name: "Binance Coin",
-                        symbol: "BNB",
-                        decimals: 18,
-                    },
-                    {
-                        key: "bsc-usdt",
-                        address: "0xDcbA7F0D49885D5C9e7CDF3e27897a5F3cdfbf62",
-                        imageUrl: "/icons/usdt.svg",
-                        name: "USD Tether",
-                        symbol: "USDT",
-                        decimals: 18,
-                    },
-                ],
-                providers: [
-                    {
-                        name: "MetaMask",
-                        key: "metaMask",
-                        imageUrl: "/icons/metamask.svg",
-                    },
-                ],
-                nftContracts: {},
             },
         },
     }
@@ -147,28 +44,19 @@ export const chainInfos = Object.values(chainConfig().chains)
 
 export const defaultChainKey = chainConfig().chains[chains[0]].key
 export const defaultChain = chainConfig().chains[chains[0]].chain
-export const defaultSecondaryChainKey = chainConfig().chains[chains[1]].key
-export const defaultSecondaryChain = chainConfig().chains[chains[1]].chain
-export const defaultNativeTokenKey =
-  chainConfig().chains[defaultChainKey].tokens[0].key
-export const defaultSecondaryNativeTokenKey =
-  chainConfig().chains[defaultSecondaryChainKey].tokens[0].key
 export const defaultProviderKey =
   chainConfig().chains[defaultChainKey].providers[0].key
-export const defaultNftKey = Object.keys(
+export const defaultNftContractKey = Object.keys(
     chainConfig().chains[defaultChainKey].nftContracts
 )[0]
 
 export interface ChainInfo {
   key: string;
-  wormholeChainId: ChainId;
-  imageUrl: string;
   chain: Chain;
-  platform: Platform;
   name: string;
-  tokens: Array<TokenInfo>;
+  imageUrl: string;
   providers: Array<ProviderInfo>;
-  nftContracts: Record<string, Record<Network, NftContractInfo>>;
+  nftContracts: Record<string, NftContractInfo>;
 }
 
 export interface ProviderInfo {
@@ -178,16 +66,10 @@ export interface ProviderInfo {
 }
 
 export interface NftContractInfo {
-  imageUrl: string;
-  name: string;
-  address: string;
-}
-
-export interface NftContractInfo {
   key: string;
   imageUrl: string;
   name: string;
-  address: string;
+  addresses: Record<Network, string>;
 }
 
 export interface TokenInfo {

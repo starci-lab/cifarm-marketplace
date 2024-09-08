@@ -3,9 +3,9 @@ import { useFormiks } from "."
 import { FormikProps, useFormik } from "formik"
 import { useSDK } from "@metamask/sdk-react"
 import { useAppSelector } from "@/redux"
-import { ethers } from "ethers"
-import { Signers, mintNFT, uploadJson } from "@/services"
-import { PremiumTileMetadata } from "@/types"
+import { NftService, PremiumTileMetadata, TransactionContext, uploadJson } from "@/services"
+import { chainToPlatform } from "@wormhole-foundation/sdk"
+import { BrowserProvider } from "ethers"
 
 export interface MintNFTFormikValues {
     tokenId: number,
@@ -18,10 +18,11 @@ export const _useMintNFTFormik =
           tokenId: 0,
           toAddress: ""
       }
-      const { chainKey, network, providerKey, nftKey, chains } = useAppSelector(
+      const { chainKey, network, nftKey, chains } = useAppSelector(
           (state) => state.chainReducer
       )
-      const nftAddress = chains[chainKey].nftContracts[nftKey][network].address
+      const { chain } = chains[chainKey]
+      const nftContractAddress = chains[chainKey].nftContracts[nftKey].addresses[network]
 
       const validationSchema = Yup.object({
           toAddress: Yup.string()
@@ -36,11 +37,7 @@ export const _useMintNFTFormik =
               tokenId,
               toAddress
           }) => {
-              const signers: Signers = {}
-              if (providerKey === "metaMask") {
-                  if (provider == null) return
-                  signers.evmProvider = new ethers.BrowserProvider(provider)
-              }
+            
               const metadata: PremiumTileMetadata = {
                   growthTimeReduction: 0,
                   pestResistance: 0,
@@ -48,16 +45,22 @@ export const _useMintNFTFormik =
                   weedResistance: 0
               }
               const cid = await uploadJson({ jsonString: JSON.stringify(metadata)})
-              await mintNFT({
-                  nftAddress: nftAddress,
-                  chainKey,
-                  data: {
-                      tokenId,
-                      toAddress,
-                      cid,
-                  },
-                  signers,
-                  network,
+
+              let context: TransactionContext | undefined
+              switch(chainToPlatform(chain)) {
+              case "Evm" : {
+                  if (!provider) return
+                  context = {
+                      provider: new BrowserProvider(provider)
+                  }
+              }
+              }
+              if (!context) return
+              const nftService = new NftService(chain, network, nftContractAddress, context)
+              await nftService.mint({
+                  cid,
+                  toAddress,
+                  tokenId
               })
           },
       })

@@ -16,9 +16,7 @@ export const Mint = () => {
     const { chainKey, chains, network } = useAppSelector(
         (state) => state.chainReducer
     )
-    const contracts = Object.values(chains[chainKey].nftContracts).map(
-        (nftContract) => nftContract[network]
-    )
+    const contracts = Object.values(chains[chainKey].nftContracts).map(nftContract => ({ ...nftContract, address: nftContract.addresses[network]}))
 
     const formik = useMintNFTFormik()
 

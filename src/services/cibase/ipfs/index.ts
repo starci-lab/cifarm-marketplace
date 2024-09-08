@@ -44,5 +44,3 @@ export class IpfsService {
         return data
     }
 }
-
-export const ipfsService = new IpfsService()

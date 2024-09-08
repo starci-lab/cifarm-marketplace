@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { storageService } from "@/services"
+import { StorageService } from "@/services"
 
 import "@/config/server-env.config"
 
@@ -9,7 +9,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
     const body = await request.json()
     const data = body.data
     const key = body.key
-    await storageService.write({
+    await new StorageService().write({
         data,
         key: key ?? defaultKey
     })
@@ -19,7 +19,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 export const GET = async (request: NextRequest): Promise<NextResponse> => {
     const url = new URL(request.url)
     const key = url.pathname.split("/").pop() 
-    const data = await storageService.read({
+    const data = await new StorageService().read({
         key: key ?? defaultKey
     })
     return new NextResponse(JSON.stringify(data))
@@ -29,7 +29,7 @@ export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
     const url = new URL(request.url)
     const key = url.pathname.split("/").pop() 
 
-    await storageService.delete({
+    await new StorageService().delete({
         key: key ?? defaultKey
     })
     return new NextResponse("")

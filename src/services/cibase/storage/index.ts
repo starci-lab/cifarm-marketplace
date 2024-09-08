@@ -1,6 +1,5 @@
 import { envConfig } from "@/config"
 import { authAxios } from "../common"
-import { join } from "path"
 
 export interface WriteRequestBody {
   key: string;
@@ -41,14 +40,12 @@ export class StorageService {
     }
 
     async read({ key }: ReadParams): Promise<unknown> {
-        const { data } = await authAxios.get(join(this.apiUrl, key))
+        const { data } = await authAxios.get(`${this.apiUrl}/${key}`)
         return data
     }
 
     async delete({ key }: DeleteParams): Promise<DeleteResponse> {
-        const { data } = await authAxios.delete( `${this.apiUrl}/${key}`)
+        const { data } = await authAxios.delete(`${this.apiUrl}/${key}`)
         return data
     }
 }
-
-export const storageService = new StorageService()
