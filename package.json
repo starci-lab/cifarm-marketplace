@@ -17,10 +17,12 @@
     "@reduxjs/toolkit": "^2.2.7",
     "@solana/web3.js": "^1.95.3",
     "@wormhole-foundation/sdk": "^0.10.4",
+    "axios": "^1.7.7",
     "dayjs": "^1.11.13",
     "ethers": "^6.13.2",
     "formik": "^2.4.6",
     "framer-motion": "^11.5.4",
+    "kubo-rpc-client": "^4.1.1",
     "next": "14.2.8",
     "numeral": "^2.0.6",
     "pinata": "^1.1.0",
@@ -29,6 +31,7 @@
     "react-redux": "^9.1.2",
     "redux": "^5.0.1",
     "swr": "^2.2.5",
+    "uuid": "^10.0.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {

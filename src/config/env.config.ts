@@ -5,8 +5,8 @@ export const envConfig = () => ({
             graphql: `${process.env.NEXT_PUBLIC_BACKEND_URL}/graphql`
         }
     },
-    pinata: {
-        jwt: process.env.PINATA_JWT,
-        gateway: process.env.PINATA_GATEWAY,
+    cibase : {
+        apiUrl: process.env.CIBASE_API_URL ?? "https://blockchain-auth-service.starci.net/api/v1",
+        authKey: process.env.CIBASE_AUTH_KEY
     }
 })
