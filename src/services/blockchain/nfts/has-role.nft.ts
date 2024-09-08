@@ -29,7 +29,7 @@ export const hasRole = async ({
     switch (platform) {
     case "Evm": {
         const rpc = evmRpc(chain as EvmChains, network)
-        const provider = new JsonRpcProvider(rpc, network)
+        const provider = new JsonRpcProvider(rpc)
         const contract = new Contract(contractAddress, nftAbi, provider)
         const minter = await contract.getFunction(role).staticCall()
         return await contract

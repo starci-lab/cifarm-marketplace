@@ -38,6 +38,7 @@ export const _useChainSwrs = (): UseChainSwrsReturn => {
     const { chain } = chains[chainKey]
 
     const { address } = { ...useAddress() }
+
     const nftContractAddress = chains[chainKey].nftContracts[nftKey].addresses[network]
 
     const checkMinterSwr = useSWR(

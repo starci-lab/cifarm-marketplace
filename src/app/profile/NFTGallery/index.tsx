@@ -5,15 +5,10 @@ import React from "react"
 import { ImportNFTCard } from "./ImportNFTCard"
 
 export const NFTGallery = () => {
-    const { chainKey, chains, network } = useAppSelector(
+    const { chainKey, chains } = useAppSelector(
         (state) => state.chainReducer
     )
-    const contracts = Object.values(chains[chainKey].nftContracts).map(
-        (nftContract) => ({
-            ...nftContract,
-            address: nftContract.addresses[network],
-        })
-    )
+    const contracts = Object.values(chains[chainKey].nftContracts)
 
     return (
         <div>

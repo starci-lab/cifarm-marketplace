@@ -30,7 +30,6 @@ export const chainConfig = (): ChainConfig => {
                     {
                         key: "metaMask",
                         name: "MetaMask",
-
                         imageUrl: "/icons/metamask.svg",
                     },
                 ],
@@ -46,7 +45,7 @@ export const defaultChainKey = chainConfig().chains[chains[0]].key
 export const defaultChain = chainConfig().chains[chains[0]].chain
 export const defaultProviderKey =
   chainConfig().chains[defaultChainKey].providers[0].key
-export const defaultNftContractKey = Object.keys(
+export const defaultNftKey = Object.keys(
     chainConfig().chains[defaultChainKey].nftContracts
 )[0]
 

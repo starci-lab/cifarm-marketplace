@@ -3,6 +3,7 @@ import {
     Network,
     chainConfig,
     defaultChainKey,
+    defaultNftKey,
     defaultProviderKey,
 } from "@/config"
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
@@ -28,7 +29,7 @@ const initialState: ChainState = {
     chainKey: defaultChainKey,
     network: Network.Testnet,
     providerKey: defaultProviderKey,
-    nftKey: defaultChainKey,
+    nftKey: defaultNftKey,
     chains: chainConfig().chains,
     saveChainsKey: 0,
 }

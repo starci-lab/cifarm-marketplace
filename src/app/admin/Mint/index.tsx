@@ -13,10 +13,10 @@ import { NftTypeCard } from "./NftTypeCard"
 import { useChainSwrs, useMintNFTFormik } from "@/hooks"
 
 export const Mint = () => {
-    const { chainKey, chains, network } = useAppSelector(
+    const { chainKey, chains } = useAppSelector(
         (state) => state.chainReducer
     )
-    const contracts = Object.values(chains[chainKey].nftContracts).map(nftContract => ({ ...nftContract, address: nftContract.addresses[network]}))
+    const contracts = Object.values(chains[chainKey].nftContracts)
 
     const formik = useMintNFTFormik()
 

@@ -22,7 +22,7 @@ export const ownerOf = async ({
     switch (platform) {
     case "Evm": {
         const rpc = evmRpc(chain as EvmChains, network)
-        const provider = new JsonRpcProvider(rpc, network)
+        const provider = new JsonRpcProvider(rpc)
         const contract = new Contract(contractAddress, nftAbi, provider)
         return await contract.getFunction("ownerOf").staticCall(tokenId)
     }
