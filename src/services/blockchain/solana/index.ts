@@ -9,7 +9,8 @@ import { computeDenomination } from "@/utils"
 import { TokenAddress } from "@wormhole-foundation/sdk"
 import { SolanaChains } from "@wormhole-foundation/sdk-solana"
 import { getSeed } from "@/services/cryptography"
-import { ChainAccount, TokenMetadata, Network } from "../common"
+import { ChainAccount, TokenMetadata } from "../common"
+import { Network } from "@/config"
 
 export const createSolanaAccount = (
     mnemonic: string,

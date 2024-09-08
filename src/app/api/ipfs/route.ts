@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from "next/server"
-import { add, uploadJsonToPinata } from "@/services"
+import { ipfsService } from "@/services"
 
 import "@/config/server-env.config"
 
-export const POST = async (request: NextRequest) : Promise<NextResponse> => {
+export const POST = async (request: NextRequest): Promise<NextResponse> => {
     const body = await request.json()
-    const json = JSON.parse(body.jsonString)
-    const upload = await add()
-    return new NextResponse(JSON.stringify(upload))
+    const jsonString = body.jsonString
+    const { data : { cid } } = await ipfsService.uploadJson({
+        jsonString,
+    })
+    return new NextResponse(cid)
 }

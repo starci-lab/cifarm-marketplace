@@ -4,7 +4,8 @@ import { FormikProps, useFormik } from "formik"
 import { useSDK } from "@metamask/sdk-react"
 import { useAppSelector } from "@/redux"
 import { ethers } from "ethers"
-import { Signers, mintNFT } from "@/services"
+import { Signers, mintNFT, uploadJson } from "@/services"
+import { PremiumTileMetadata } from "@/types"
 
 export interface MintNFTFormikValues {
     toAddress: string
@@ -37,12 +38,19 @@ export const _useMintNFTFormik =
                   if (provider == null) return
                   signers.evmSigner = await new ethers.BrowserProvider(provider).getSigner()
               }
+              const metadata: PremiumTileMetadata = {
+                  growthTimeReduction: 0,
+                  pestResistance: 0,
+                  productivityIncrease: 0,
+                  weedResistance: 0
+              }
+              const cid = await uploadJson({ jsonString: JSON.stringify(metadata)})
               return await mintNFT({
                   nftAddress: nftAddress,
                   chainKey,
                   data: {
                       toAddress,
-                      cid: "hentai"
+                      cid,
                   },
                   signers,
                   network,

@@ -5,7 +5,7 @@ import {
     getAptosBalance,
     getAptosTokenMetadata,
 } from "../aptos"
-import { ChainAccount, MintNFTData, Network, Signers } from "../common"
+import { ChainAccount, MintNFTData, Signers } from "../common"
 import {
     createSolanaAccount,
     getSolanaBalance,
@@ -15,6 +15,7 @@ import {
 import { SolanaChains } from "@wormhole-foundation/sdk-solana"
 import { createEvmAccount, bscExplorerUrls, getBscBalance, _mintNFT } from "../evm"
 import { checkAvalancheMinter } from "../evm"
+import { Network } from "@/config"
 
 export interface GetBalanceParams {
   accountAddress: string;

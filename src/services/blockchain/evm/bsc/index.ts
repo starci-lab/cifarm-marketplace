@@ -1,6 +1,5 @@
-import { Network } from "@/types"
 import { _getBalance } from "../common"
-import { chainConfig } from "@/config"
+import { Network, chainConfig } from "@/config"
 
 export const bscExplorerUrls = (
     value: string,

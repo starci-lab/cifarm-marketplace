@@ -1,6 +1,7 @@
-import { Network, getBscRpc, getKlaytnRpc } from "@/services"
+import { getBscRpc, getKlaytnRpc } from "@/services"
 import { Chain } from "@wormhole-foundation/sdk"
 import { getAvalancheRpc } from "./avalanche"
+import { Network } from "@/config"
 
 export * from "./abi"
 export * from "./bsc"

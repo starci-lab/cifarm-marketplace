@@ -20,7 +20,7 @@ export const chainConfig = (): ChainConfig => {
                     premiumTile: {
                         [Network.Testnet]: {
                             key: "premiumTile",
-                            address: "0x08AB6dF254B47C6107C89d6155fCbec6Bc9CD13a",
+                            address: "0xA5dB84BdFdCEf04c477cbc0B9fE541cEDF9d33Fc",
                             name: "Premium Tile NFT",
                             imageUrl: "/icons/premium-tile.png",
                         },
