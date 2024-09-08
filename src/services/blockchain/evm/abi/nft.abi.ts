@@ -702,6 +702,11 @@ export const nftAbi = [
     {
         inputs: [
             {
+                internalType: "uint256",
+                name: "tokenId",
+                type: "uint256",
+            },
+            {
                 internalType: "address",
                 name: "to",
                 type: "address",
@@ -713,13 +718,7 @@ export const nftAbi = [
             },
         ],
         name: "mint",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "tokenId",
-                type: "uint256",
-            },
-        ],
+        outputs: [],
         stateMutability: "nonpayable",
         type: "function",
     },

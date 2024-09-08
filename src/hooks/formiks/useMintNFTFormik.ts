@@ -8,12 +8,14 @@ import { Signers, mintNFT, uploadJson } from "@/services"
 import { PremiumTileMetadata } from "@/types"
 
 export interface MintNFTFormikValues {
+    tokenId: number,
     toAddress: string
 }
 
 export const _useMintNFTFormik =
   (): FormikProps<MintNFTFormikValues> => {
       const initialValues: MintNFTFormikValues = {
+          tokenId: 0,
           toAddress: ""
       }
       const { chainKey, network, providerKey, nftKey, chains } = useAppSelector(
@@ -31,12 +33,13 @@ export const _useMintNFTFormik =
           initialValues,
           validationSchema,
           onSubmit: async ({
+              tokenId,
               toAddress
           }) => {
               const signers: Signers = {}
               if (providerKey === "metaMask") {
                   if (provider == null) return
-                  signers.evmSigner = await new ethers.BrowserProvider(provider).getSigner()
+                  signers.evmProvider = new ethers.BrowserProvider(provider)
               }
               const metadata: PremiumTileMetadata = {
                   growthTimeReduction: 0,
@@ -45,10 +48,11 @@ export const _useMintNFTFormik =
                   weedResistance: 0
               }
               const cid = await uploadJson({ jsonString: JSON.stringify(metadata)})
-              return await mintNFT({
+              await mintNFT({
                   nftAddress: nftAddress,
                   chainKey,
                   data: {
+                      tokenId,
                       toAddress,
                       cid,
                   },

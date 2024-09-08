@@ -57,13 +57,16 @@ export const _checkMinter = async (
 
 export const _mintNFT = async (
     nftAddress: string,
-    evmSigner: ethers.JsonRpcSigner,
+    evmProvider: ethers.BrowserProvider,
     data: MintNFTData
 ): Promise<string> => {
-    const contract = new ethers.Contract(nftAddress, nftAbi, evmSigner)
+    const signer = await evmProvider.getSigner()
+    const contract = new ethers.Contract(nftAddress, nftAbi, signer)
     const { hash } = (await contract.mint(
+        BigInt(data.tokenId),
         data.toAddress,
         data.cid
     )) as ContractTransactionResponse
+    await evmProvider.waitForTransaction(hash)
     return hash
 }

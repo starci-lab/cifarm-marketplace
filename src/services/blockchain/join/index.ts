@@ -167,8 +167,8 @@ export const mintNFT = async ({
     
     switch (chainKey) {
     case "avalanche":
-        if (!signers.evmSigner) throw new Error("Evm signer not found")
-        return _mintNFT(nftAddress, signers.evmSigner, data)
+        if (!signers.evmProvider) throw new Error("Evm provider not found")
+        return _mintNFT(nftAddress, signers.evmProvider, data)
     default:
         throw new Error("Invalid chain key")
     }

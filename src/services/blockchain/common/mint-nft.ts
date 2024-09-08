@@ -1,9 +1,10 @@
 import ethers from "ethers"
 
 export interface Signers {
-  evmSigner?: ethers.JsonRpcSigner;
+  evmProvider?: ethers.BrowserProvider;
 }
 export interface MintNFTData {
+  tokenId: number,
   toAddress: string;
   cid: string;
 }

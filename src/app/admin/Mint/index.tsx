@@ -50,6 +50,19 @@ export const Mint = () => {
                 {checkMinterSwr.data ? (
                     <form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
                         <Input
+                            id="tokenId"
+                            label="Token Id"
+                            isRequired
+                            placeholder="Input token Id here"
+                            labelPlacement="outside"
+                            value={formik.values.tokenId.toString()}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            isInvalid={!!(formik.touched.tokenId && formik.errors.tokenId)}
+                            errorMessage={formik.touched.tokenId && formik.errors.tokenId}
+                        />
+                        <Spacer y={4} />
+                        <Input
                             id="toAddress"
                             label="To Address"
                             isRequired
