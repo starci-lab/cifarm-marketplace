@@ -7,6 +7,7 @@ import { store } from "@/redux"
 import { HooksProvider } from "@/hooks"
 import { Modals } from "@/components"
 import { MetaMaskProvider } from "@metamask/sdk-react"
+import { ToastContainer } from "@/toasts"
 export const WrappedLayout = ({
     children,
 }: PropsWithChildren) => {
@@ -24,6 +25,7 @@ export const WrappedLayout = ({
                     <HooksProvider>
                         {children}          
                         <Modals/>
+                        <ToastContainer/>
                     </HooksProvider>  
                 </ReduxProvider>      
             </MetaMaskProvider>

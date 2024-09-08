@@ -4,6 +4,7 @@ import { TransactionContext } from "../common"
 import { MintParams, mint } from "./mint.nft"
 import { HasRoleParams, hasRole } from "./has-role.nft"
 import { OwnerOfParams, ownerOf } from "./owner-of.nft"
+import { TokenURIParams, tokenURI } from "./token-uri.nft"
 
 export class NftService {
     constructor(
@@ -47,6 +48,18 @@ export class NftService {
     }: Pick<OwnerOfParams, "tokenId">)
     {
         return await ownerOf({
+            tokenId,
+            chain: this.chain,
+            contractAddress: this.contractAddress,
+            network: this.network,
+        }) 
+    }
+
+    public async tokenURI({
+        tokenId
+    }: Pick<TokenURIParams, "tokenId">)
+    {
+        return await tokenURI({
             tokenId,
             chain: this.chain,
             contractAddress: this.contractAddress,

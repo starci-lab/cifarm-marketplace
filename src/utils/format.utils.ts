@@ -1,5 +1,6 @@
 import numeral from "numeral"
 import dayjs from "dayjs"
+import { ethers } from "ethers"
 
 export const NUMBER_PATTERN_1 = "0.0000a"
 
@@ -36,3 +37,5 @@ export const truncateString = (
     if (end === 0) return `${address.slice(0, start)}...`
     return `${address.slice(0, start)}...${address.slice(-end)}`
 }
+
+export const toChecksumAddress = (address: string) => ethers.getAddress(address)

@@ -1,6 +1,6 @@
-import { useProviderChange } from "./useProviderChange"
+import { useProfile } from "./useProfile"
 
 export const useEffects = () => {
-    useProviderChange()
+    useProfile()
 }
 

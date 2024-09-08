@@ -6,7 +6,7 @@ import {
     Role,
     TransactionContext,
 } from "@/services"
-import { useAddress } from "./_useAddress"
+import { useAddress } from "../common"
 import useSWRMutation, { SWRMutationResponse } from "swr/mutation"
 
 const CHAIN_CHECK_MINTER = "CHAIN_CHECK_MINTER"
